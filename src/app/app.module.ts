@@ -13,6 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthGuardService } from './services/auth-guard.service';
 import { AuthenticationService } from './services/authentication.service';
 
+import { Network } from '@ionic-native/network/ngx';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 @NgModule({
@@ -29,6 +30,7 @@ import { IonicStorageModule } from '@ionic/storage';
   providers: [
     StatusBar,
     SplashScreen,
+    Network,
     AuthGuardService,
     AuthenticationService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-
-import { Platform, NavController } from '@ionic/angular';
+import { Platform, NavController, AlertController, ToastController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Storage } from '@ionic/storage';
 import { AuthenticationService } from './services/authentication.service';
+import { Network } from '@ionic-native/network/ngx';
 
 @Component({
   selector: 'app-root',
@@ -31,7 +31,10 @@ export class AppComponent {
     private statusBar: StatusBar,
     private storage: Storage,
     private authenticationService: AuthenticationService,
-    private navController:NavController
+    private navController:NavController,
+    public alertCtrl :AlertController,
+    private toastCtrl: ToastController,
+    private network: Network,
 
   ) {
     this.initializeApp();
@@ -41,6 +44,27 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
+      this.platform.backButton.subscribeWithPriority(0, () => {
+        this.exitFunction('Are you sure you want to Exit App ?');
+      });
+
+       // watch network for a disconnection
+    this.network.onDisconnect().subscribe(() => {
+      console.log('network was disconnected ☹️');
+      this.presentToast('Internet not available  ☹️');
+      this.exitFunction('Exit and try again');
+    });
+
+    // watch network for a connection
+    this.network.onConnect().subscribe(() => {
+      this.presentToast('Network connected! ☺️ ');
+      setTimeout(() => {
+        if (this.network.type === 'wifi') {
+          this.presentToast('we got a wifi connection, woohoo!');
+        }
+      }, 3000);
+    });
 
       this.authenticationService.authState.subscribe(state => {
         console.log(state);
@@ -55,4 +79,39 @@ export class AppComponent {
 
     });
   }
+
+
+  async exitFunction(msg : string) {
+    const alert = await this.alertCtrl.create({
+      header: msg,
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+
+          }
+        },
+        {
+          text: 'Okay',
+          handler: () => {
+            navigator['app'].exitApp();
+            // console.log('Confirm Okay');
+          }
+        }
+      ]
+
+    });
+
+    await alert.present();
+  }
+
+  async presentToast(msg) {
+    const toast = await this.toastCtrl.create({
+      message: msg,
+      duration: 2000
+    });
+    toast.present();
+  }
+
 }
