@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { ConfigService } from '../services/config.service';
 import { HttpClient } from '@angular/common/http';
 import { PasswordValidator } from '../password.validator';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 
 @Component({
@@ -28,6 +29,7 @@ export class RegisterPage implements OnInit {
     private router: Router,
     private config: ConfigService,
     public http: HttpClient,
+    private iab: InAppBrowser
   ) { }
 
   ngOnInit() {
@@ -60,9 +62,6 @@ export class RegisterPage implements OnInit {
         Validators.pattern('^[0-9]*$')
       ])),
       matching_passwords: this.matching_passwords_group,
-      oldpassword: new FormControl('', Validators.compose([
-        Validators.required,
-      ])),
 
     });
   }
@@ -81,9 +80,6 @@ export class RegisterPage implements OnInit {
       { type: 'minlength', message: 'Mobile No must be at least 10' },
       { type: 'maxlength', message: 'Mobile No cannot be more than 10' },
       { type: 'pattern', message: 'Chapter are not allowed' }
-    ],
-    oldpassword: [
-      { type: 'required', message: 'Old Password is required.' },
     ],
     password: [
       { type: 'required', message: 'Password is required.' },
@@ -110,6 +106,14 @@ export class RegisterPage implements OnInit {
     this.showConfirmPassword = !this.showConfirmPassword;
   }
 
+  navigationToPage(page){
+    this.router.navigateByUrl(page);
+  }
+
+
+  openExternalURL() {
+    this.iab.create('http://sandtell.com/', '_system');
+  }
   
 
 }
