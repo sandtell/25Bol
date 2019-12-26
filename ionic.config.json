@@ -1,0 +1,7 @@
+{
+  "name": "25Bol",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
