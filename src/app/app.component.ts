@@ -48,7 +48,8 @@ export class AppComponent {
         if (state) {
           this.navController.navigateRoot(['home']);
         } else {
-          this.navController.navigateRoot(['login']);
+          // this.navController.navigateRoot(['login']);
+          this.navController.navigateRoot(['intro']);
         }
       });
 

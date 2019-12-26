@@ -15,7 +15,8 @@ export class HomePage {
 
   logoutFn(){
     this.authService.logout();
-    this.router.navigateByUrl('login');
+    // this.router.navigateByUrl('login');
+    this.router.navigateByUrl('intro');
   }
 
 }

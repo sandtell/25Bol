@@ -37,7 +37,8 @@ export class AuthenticationService {
  
   logout() {
     this.storage.remove('USER_INFO').then(() => {
-      this.router.navigateByUrl('login');
+      // this.router.navigateByUrl('login');
+      this.router.navigateByUrl('intro');
       this.authState.next(false);
     });
   }
