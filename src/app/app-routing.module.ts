@@ -28,6 +28,10 @@ const routes: Routes = [
   {
     path: 'intro',
     loadChildren: () => import('./intro/intro.module').then( m => m.IntroPageModule)
+  },
+  {
+    path: 'forgotpwd',
+    loadChildren: () => import('./forgotpwd/forgotpwd.module').then( m => m.ForgotpwdPageModule)
   }
 ];
 

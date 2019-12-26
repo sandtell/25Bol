@@ -1,9 +1,61 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>login</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
+<ion-content>
 
-<ion-content class="ion-padding">
-<ion-button (click)="loginFn()">Login</ion-button>
+  <div class="text-center ion-padding">
+    <h4><b>Login Now!</b></h4>
+  </div>
+
+  <form [formGroup]="validations_form" (ngSubmit)="onSubmit(validations_form.value)">
+    <ion-card>
+      <ion-card-content>
+        <ion-item>
+          <ion-label position="floating" color="danger">Mobile
+          </ion-label>
+          <ion-input type="text" formControlName="mobileNo"></ion-input>
+        </ion-item>
+        <div class="validation-errors">
+          <ng-container *ngFor="let validation of validation_messages.mobileNo">
+            <div class="error-message"
+              *ngIf="validations_form.get('mobileNo').hasError(validation.type) && (validations_form.get('mobileNo').dirty || validations_form.get('mobileNo').touched)">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </div>
+          </ng-container>
+        </div>
+
+        <ion-item>
+          <ion-label position="floating" color="danger">Password
+          </ion-label>
+          <ion-input type="password" formControlName="password"></ion-input>
+        </ion-item>
+        <div class="validation-errors">
+          <ng-container *ngFor="let validation of validation_messages.password">
+            <div class="error-message"
+              *ngIf="validations_form.get('password').hasError(validation.type) && (validations_form.get('password').dirty || validations_form.get('password').touched)">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </div>
+          </ng-container>
+        </div>
+
+        <div text-center class="ion-padding">
+          <button type="submit" [disabled]="!validations_form.valid" class="btn btn-danger btn-round">Login</button>
+        </div>
+
+        <div text-center>
+          <ion-text color="primary" (click)="navigationToPage('/forgotpwd')">Forgot Password </ion-text>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </form>
+
+  <div text-center class="ion-padding">
+    <span>New To 25Bol ? </span>
+    <ion-text color="primary" (click)="navigationToPage('/register')">Signup Now</ion-text>
+  </div>
+
 </ion-content>

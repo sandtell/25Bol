@@ -1,3 +1,27 @@
 <ion-content>
-  
+  <div class="header">
+    <div class="row h-100">
+      <div class="col-sm-12 my-auto">
+        <img src="../../assets/logo.jpeg" class="rounded">
+        <p>Welcome to 25Bol</p>
+      </div>
+    </div>
+  </div>
+  <ion-footer class="text-center ion-padding">
+    <ion-toolbar>
+      <ion-row>
+        <ion-col>
+          <ion-button color="light" (click)="navigationToPage('/login')" >
+            <ion-text color="danger">Login Now
+            </ion-text>
+          </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button color="light" (click)="navigationToPage('/register')" >
+            <ion-text color="danger"> Create Account </ion-text>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-toolbar>
+  </ion-footer>
 </ion-content>

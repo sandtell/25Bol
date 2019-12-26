@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-intro',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IntroPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    public menuCtrl: MenuController,
+    private router: Router,
+  ) { }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter() {
+    this.menuCtrl.enable(false);
+  }
+
+  navigationToPage(page){
+    this.router.navigateByUrl(page);
   }
 
 }
