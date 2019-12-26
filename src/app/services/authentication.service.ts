@@ -23,23 +23,20 @@ export class AuthenticationService {
         this.authState.next(true);
       }
     });
-  }
- 
+  } 
  
   login() {
     var dummy_response = {
       user_id: '000',
     };
     this.storage.set('USER_INFO', dummy_response).then((response) => {
-      // this.router.navigate(['tabs']);
-      this.router.navigateByUrl('tabs');
+      this.router.navigateByUrl('home');
       this.authState.next(true);
     });
   }
  
   logout() {
     this.storage.remove('USER_INFO').then(() => {
-      // this.router.navigate(['login']);
       this.router.navigateByUrl('login');
       this.authState.next(false);
     });
