@@ -10,6 +10,7 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 })
 export class LoginPage implements OnInit {
   validations_form: FormGroup;
+  public showPassword: boolean = false;
   constructor(
     private authService: AuthenticationService,
     private router: Router,
@@ -57,6 +58,10 @@ export class LoginPage implements OnInit {
 
   navigationToPage(page){
     this.router.navigateByUrl(page);
+  }
+
+  onPasswordToggle(): void {
+    this.showPassword = !this.showPassword;
   }
 
 }
