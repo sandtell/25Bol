@@ -34,13 +34,13 @@ export class AppComponent {
       title: 'About Us',
       url: '/list',
       icon: 'fa fa-address-card-o fa-1x',
-      pageMode:'About Us'
+      pageMode:'AboutUs'
     },
     {
       title: 'Contact Us',
       url: '/list',
       icon: 'fa fa-phone-square fa-1x',
-      pageMode:'Contact Us'
+      pageMode:'ContactUs'
     },
     {
       title: 'My Account',
@@ -74,7 +74,7 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-
+      this.statusBar.backgroundColorByHexString("#A71E16");
        // watch network for a disconnection
     this.network.onDisconnect().subscribe(() => {
       console.log('network was disconnected ☹️');
