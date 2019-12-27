@@ -45,10 +45,6 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
-      this.platform.backButton.subscribeWithPriority(0, () => {
-        this.exitFunction('Are you sure you want to Exit App ?');
-      });
-
        // watch network for a disconnection
     this.network.onDisconnect().subscribe(() => {
       console.log('network was disconnected ☹️');
