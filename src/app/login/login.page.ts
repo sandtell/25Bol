@@ -56,10 +56,7 @@ export class LoginPage implements OnInit {
     this.router.navigateByUrl('home');
   }
 
-  navigationToPage(page){
-    this.router.navigateByUrl(page);
-  }
-
+  
   onPasswordToggle(): void {
     this.showPassword = !this.showPassword;
   }

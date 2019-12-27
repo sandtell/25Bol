@@ -11,14 +11,15 @@
     <ion-toolbar>
       <ion-row>
         <ion-col>
-          <ion-button color="light" (click)="navigationToPage('/login')" >
+          <ion-button color="light" routerLink="/login" routerDirection="forward">
             <ion-text color="danger">Login Now
             </ion-text>
           </ion-button>
         </ion-col>
         <ion-col>
-          <ion-button color="light" (click)="navigationToPage('/register')" >
-            <ion-text color="danger"> Create Account </ion-text>
+          <ion-button color="light" routerLink="/register" routerDirection="forward">
+            <ion-text color="danger">Create Account
+            </ion-text>
           </ion-button>
         </ion-col>
       </ion-row>

@@ -37,9 +37,6 @@ export class IntroPage implements OnInit , OnDestroy, AfterViewInit  {
     this.menuCtrl.enable(false);
   }
 
-  navigationToPage(page){
-    this.router.navigateByUrl(page);
-  }
 
   async exitFunction(msg : string) {
     const alert = await this.alertCtrl.create({

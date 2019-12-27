@@ -50,7 +50,7 @@
         </div>
 
         <div text-center>
-          <ion-text color="primary" (click)="navigationToPage('/forgotpwd')">Forgot Password </ion-text>
+          <ion-text color="primary" routerLink="/forgotpwd" routerDirection="forward">Forgot Password </ion-text>
         </div>
       </ion-card-content>
     </ion-card>
@@ -58,7 +58,7 @@
 
   <div text-center class="ion-padding">
     <span>New To 25Bol ? </span>
-    <ion-text color="primary" (click)="navigationToPage('/register')">Signup Now</ion-text>
+    <ion-text color="primary" routerLink="/register" routerDirection="forward">Signup Now</ion-text>
   </div>
 
 </ion-content>
