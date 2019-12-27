@@ -14,7 +14,7 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   },
   {
-    path: 'list',
+    path: 'list/:pageMode',
     loadChildren: () => import('./list/list.module').then(m => m.ListPageModule)
   },
   {
@@ -36,6 +36,10 @@ const routes: Routes = [
   {
     path: 'dashboard',
     loadChildren: () => import('./dashboard/dashboard.module').then( m => m.DashboardPageModule)
+  },
+  {
+    path: 'myaccount',
+    loadChildren: () => import('./myaccount/myaccount.module').then( m => m.MyaccountPageModule)
   }
 ];
 
