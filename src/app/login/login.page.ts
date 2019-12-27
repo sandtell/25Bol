@@ -49,12 +49,10 @@ export class LoginPage implements OnInit {
 
   async onSubmit(values){
     console.log(values);
-  }
-
-  loginFn(){
     this.authService.login();
     this.router.navigateByUrl('home');
   }
+ 
 
   
   onPasswordToggle(): void {

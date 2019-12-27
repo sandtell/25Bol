@@ -32,6 +32,10 @@ const routes: Routes = [
   {
     path: 'forgotpwd',
     loadChildren: () => import('./forgotpwd/forgotpwd.module').then( m => m.ForgotpwdPageModule)
+  },
+  {
+    path: 'dashboard',
+    loadChildren: () => import('./dashboard/dashboard.module').then( m => m.DashboardPageModule)
   }
 ];
 

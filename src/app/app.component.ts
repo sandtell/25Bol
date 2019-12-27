@@ -14,15 +14,16 @@ import { Network } from '@ionic-native/network/ngx';
 export class AppComponent {
   public appPages = [
     {
-      title: 'Home',
-      url: '/home',
-      icon: 'home'
-    },
-    {
-      title: 'List',
-      url: '/list',
-      icon: 'list'
+      title: 'Dashboard',
+      url: '/dashboard',
+      icon: 'fa fa-home fa-2x'
     }
+    // ,
+    // {
+    //   title: 'List',
+    //   url: '/list',
+    //   icon: 'list'
+    // }
   ];
 
   constructor(
@@ -66,7 +67,7 @@ export class AppComponent {
         console.log(state);
         // alert(state);
         if (state) {
-          this.navController.navigateRoot(['home']);
+          this.navController.navigateRoot(['dashboard']);
         } else {
           // this.navController.navigateRoot(['login']);
           this.navController.navigateRoot(['intro']);

@@ -30,7 +30,7 @@ export class AuthenticationService {
       user_id: '000',
     };
     this.storage.set('USER_INFO', dummy_response).then((response) => {
-      this.router.navigateByUrl('home');
+      this.router.navigateByUrl('dashboard');
       this.authState.next(true);
     });
   }

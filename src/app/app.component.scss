@@ -1,0 +1,25 @@
+.container{
+    position: relative;
+    color:white;
+    height:30%;
+    background: rgb(0,0,0);
+    background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(16,0,1,1) 14%, rgba(105,1,0,1) 100%);
+}
+.bottomleft {
+    position: absolute;
+    bottom: 8px;
+    left: 16px;
+    font-size: 18px;
+  }
+
+  .bottomright {
+    position: absolute;
+    bottom: 8px;
+    right: 16px;
+    font-size: 12px;
+  }
+
+  ion-item-divider{
+      color:black;
+      font-size:16px;
+  }
