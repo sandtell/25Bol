@@ -60,7 +60,7 @@
         <div formGroupName="matching_passwords">
           <ion-item>
             <ion-label position="floating" color="success">Password</ion-label>
-            <ion-input formControlName="password" [type]="showPassword ? 'text' : 'password'" clearOnEdit="false">
+            <ion-input formControlName="password" [type]="showPassword ? 'password' : 'text'" clearOnEdit="false">
             </ion-input>
             <!-- <ion-input type="password" formControlName="password"></ion-input> -->
             <ion-icon slot="end" class="ion-padding-top" (click)="onPasswordToggle()" ion-button clear small icon-only
@@ -77,7 +77,7 @@
   
           <ion-item>
             <ion-label position="floating" color="success">Confirm Password</ion-label>
-            <ion-input formControlName="confirm_password" [type]="showConfirmPassword ? 'text' : 'password'" clearOnEdit="false">
+            <ion-input formControlName="confirm_password" [type]="showConfirmPassword ? 'password' : 'text'" clearOnEdit="false">
             </ion-input>
             <!-- <ion-input type="password" formControlName="confirm_password"></ion-input> -->
             <ion-icon slot="end" class="ion-padding-top" (click)="onConfirmPasswordToggle()" ion-button clear small icon-only

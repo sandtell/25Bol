@@ -10,7 +10,7 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 })
 export class LoginPage implements OnInit {
   validations_form: FormGroup;
-  public showPassword: boolean = false;
+  public showPassword: boolean = true;
   constructor(
     private authService: AuthenticationService,
     private router: Router,

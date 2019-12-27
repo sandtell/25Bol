@@ -30,7 +30,7 @@
 
         <ion-item>
           <ion-label position="floating" color="success">Password</ion-label>
-          <ion-input formControlName="password" [type]="showPassword ? 'text' : 'password'" clearOnEdit="false">
+          <ion-input formControlName="password" [type]="showPassword ? 'password' : 'text'" clearOnEdit="false">
           </ion-input>
           <ion-icon slot="end" class="ion-padding-top" (click)="onPasswordToggle()" ion-button clear small icon-only
             [name]="showPassword ? 'eye-off' : 'eye'"></ion-icon>

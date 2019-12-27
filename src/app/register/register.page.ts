@@ -17,8 +17,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 export class RegisterPage implements OnInit {
   validations_form: FormGroup;
   matching_passwords_group: FormGroup;
-  public showPassword: boolean = false;
-  public showConfirmPassword: boolean = false;
+  public showPassword: boolean = true;
+  public showConfirmPassword: boolean = true;
   constructor(
     private navCtrl: NavController,
     public formBuilder: FormBuilder,
