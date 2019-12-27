@@ -8,9 +8,9 @@
       <ion-content>
         <ion-list lines="none">
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
-            <ion-item-divider [routerDirection]="'root'" [routerLink]="[p.url]"  >
+            <ion-item-divider [routerDirection]="'root'" [routerLink]="[p.url]" style="outline: none;"  >
               <i slot="start" [class]="p.icon" ></i>
-              <ion-label class="ion-padding-left" >
+              <ion-label >
                 {{p.title}}
               </ion-label>
             </ion-item-divider>

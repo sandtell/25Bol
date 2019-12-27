@@ -16,14 +16,38 @@ export class AppComponent {
     {
       title: 'Dashboard',
       url: '/dashboard',
-      icon: 'fa fa-home fa-2x'
+      icon: 'fa fa-home fa-1x'
+    },
+    {
+      title: 'Announcements',
+      url: '/list',
+      icon: 'fa fa-bullhorn fa-1x'
+    },
+    {
+      title: 'Downloads',
+      url: '/list',
+      icon: 'fa fa-download fa-1x'
+    },
+    {
+      title: 'About Us',
+      url: '/list',
+      icon: 'fa fa-address-card-o fa-1x'
+    },
+    {
+      title: 'Contact Us',
+      url: '/list',
+      icon: 'fa fa-phone-square fa-1x'
+    },
+    {
+      title: 'My Account',
+      url: '/list',
+      icon: 'fa fa-user fa-1x'
+    },
+    {
+      title: 'Logout',
+      url: '/list',
+      icon: 'fa fa-sign-out fa-1x'
     }
-    // ,
-    // {
-    //   title: 'List',
-    //   url: '/list',
-    //   icon: 'list'
-    // }
   ];
 
   constructor(

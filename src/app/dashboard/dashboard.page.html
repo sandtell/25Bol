@@ -1,28 +1,81 @@
 <ion-content>
   <div class="customImg">
-    <img src="../../assets/dashboard.jpg" class="imgResposive" >
-    <div class="topright" (click)="logoutFn()" >
+    <img src="../../assets/dashboard.jpg" class="imgResposive">
+    <div class="topright" (click)="logoutFn()">
       <div class="col-12 text-center">
-        <i class="fa fa-sign-out fa-2x" ></i>
+        <i class="fa fa-sign-out fa-2x"></i>
       </div>
       <div class="col-12">
         Logout
       </div>
     </div>
-    
   </div>
-  
 
-    <div class="ion-padding container-fluid">
-      <div class="row">
-        <div class="col-6">
-          <div class="card card-5"></div>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6">
+        <div class="card card-5" routerLink="/home" routerDirection="forward" >
+          <figure class="ion-padding-top ">
+            <img src="../../assets/25Bols.jpeg" class="rounded-circle" width="50" height="50">
+            <figcaption class="figure-caption"><b>25 Bols</b></figcaption>
+          </figure>
         </div>
-        <div class="col-6 float-right" >
-          <div class="card card-5"></div>
+      </ion-col>
+      <ion-col size="6">
+        <div class="card card-5">
+          <figure class="ion-padding-top ">
+            <img src="../../assets/ks.jpeg" class="rounded-circle" width="50" height="50">
+            <figcaption class="figure-caption"><b>kalu Shatak</b></figcaption>
+          </figure>
         </div>
-      </div>
-    </div>
+      </ion-col>
+      <ion-col size="6">
+        <div class="card card-5">
+          <figure class="ion-padding-top ">
+            <i class="iconCss fa fa-bullhorn fa-2x"></i>
+            <figcaption class="figure-caption"><b>Announcement</b></figcaption>
+          </figure>
+        </div>
+      </ion-col>
+      <ion-col size="6">
+        <div class="card card-5">
+          <figure class="ion-padding-top ">
+            <i class="iconCss fa fa-download fa-2x"></i>
+            <figcaption class="figure-caption"><b>Downloads</b></figcaption>
+          </figure>
+        </div>
+      </ion-col>
+
+      <ion-col size="6">
+        <div class="card card-5">
+          <figure class="ion-padding-top ">
+            <i class="iconCss fa fa-user fa-2x"></i>
+            <figcaption class="figure-caption"><b>My Account</b></figcaption>
+          </figure>
+        </div>
+      </ion-col>
+
+      <ion-col size="6">
+        <div class="card card-5">
+          <figure class="ion-padding-top ">
+            <i class="iconCss fa fa-address-card-o fa-2x"></i>
+            <figcaption class="figure-caption"><b>About Us</b></figcaption>
+          </figure>
+        </div>
+      </ion-col>
+
+      <ion-col size="12">
+        <div class="card card-5">
+          <figure class="ion-padding-top ">
+            <i class="iconCss fa fa-phone-square fa-2x"></i>
+            <figcaption class="figure-caption"><b>Contact Us</b></figcaption>
+          </figure>
+        </div>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
 
 
 </ion-content>
