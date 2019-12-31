@@ -94,9 +94,7 @@ export class RegisterPage implements OnInit {
     ]
   };
 
-  async onSubmit(values){
-    console.log(values);
-  }
+  
 
   onPasswordToggle(): void {
     this.showPassword = !this.showPassword;
@@ -105,15 +103,74 @@ export class RegisterPage implements OnInit {
   onConfirmPasswordToggle(): void {
     this.showConfirmPassword = !this.showConfirmPassword;
   }
-
-  navigationToPage(page){
-    this.router.navigateByUrl(page);
-  }
+ 
 
 
   openExternalURL() {
     this.iab.create('http://sandtell.com/', '_system');
   }
   
+
+  async onSubmit(values){
+    console.log(values);
+
+    let signupValues = {
+      username : values.fullName,
+      email : values.email,
+      mobileNo : values.mobileNo,
+      password : values.matching_passwords.password
+    }
+
+    let data: any;
+    const url = this.config.domainURL + 'signup';
+    const loading = await this.loadingCtrl.create({
+      message: 'Creating New User...',
+    });
+    data = this.http.post(url,signupValues);
+    loading.present().then(() => {
+      data.subscribe(result => {
+        console.log(result);
+
+        
+
+        console.log(result.data.user_id);
+
+       if (result.status === "1" && result.data.isVerified === 0) {
+
+
+        localStorage.setItem('lsUserID',result.data.user_id);
+        localStorage.setItem('lsUserName',result.data.user_name);
+        localStorage.setItem('lsEmail',result.data.user_email);
+        localStorage.setItem('lsMobileNo',result.data.user_mobile);
+        localStorage.setItem('lsIsVerified',result.data.isVerified);
+        localStorage.setItem('lsOTP',result.data.OTP);
+
+          this.router.navigateByUrl('otp');
+          this.presentToast(result.message);
+          loading.dismiss();
+        }
+        else if (result.status === "0") {
+          this.presentToast(result.message);
+          loading.dismiss();
+        }
+
+        loading.dismiss();
+      });
+      return loading.present();
+    }, error => {
+      console.log(error);
+      loading.dismiss();
+    });
+    this.validations_form.reset();
+  }
+
+
+  async presentToast(msg: string) {
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: 3000
+    });
+    toast.present();
+  }
 
 }

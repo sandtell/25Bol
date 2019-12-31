@@ -5,5 +5,6 @@ import { Injectable } from '@angular/core';
 })
 export class ConfigService {
 
+  public domainURL = "http://25bol.sandtell.com/api/";
   constructor() { }
 }

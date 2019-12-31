@@ -40,6 +40,10 @@ const routes: Routes = [
   {
     path: 'myaccount',
     loadChildren: () => import('./myaccount/myaccount.module').then( m => m.MyaccountPageModule)
+  },
+  {
+    path: 'otp',
+    loadChildren: () => import('./otp/otp.module').then( m => m.OtpPageModule)
   }
 ];
 

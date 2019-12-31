@@ -11,7 +11,8 @@ import { Network } from '@ionic-native/network/ngx';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
-export class AppComponent {
+export class AppComponent {   
+  public userName:string='';
   public appPages = [
     {
       title: 'Dashboard',
@@ -96,6 +97,7 @@ export class AppComponent {
         console.log(state);
         // alert(state);
         if (state) {
+           this.userName = localStorage.getItem('lsUserName');
           this.navController.navigateRoot(['dashboard']);
         } else {
           // this.navController.navigateRoot(['login']);

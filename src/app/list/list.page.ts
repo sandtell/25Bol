@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
 import { Platform } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-list',
@@ -16,6 +17,7 @@ export class ListPage implements OnInit {
     private authService: AuthenticationService,
     private router: Router,
     private platform: Platform,
+    private storage: Storage,
   ) {
      
   }
@@ -32,6 +34,9 @@ export class ListPage implements OnInit {
     });
 
     if(this.pageMode === 'Logout'){
+      this.storage.clear().then(() => {
+        console.log('all keys are cleared');
+      });
       this.authService.logout();
       this.router.navigateByUrl('intro');
     }

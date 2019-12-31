@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="text-center ion-padding">
+    <h4><b>Signup Now!</b></h4>
+  </div>
+
+  <form [formGroup]="validations_form" (ngSubmit)="onSubmit(validations_form.value)">
+    <ion-card>
+      <ion-card-content>
+        <ion-item>
+          <ion-label position="floating" color="success">Enter OTP
+          </ion-label>
+          <ion-input type="text" formControlName="otp"></ion-input>
+        </ion-item>
+        <div class="validation-errors">
+          <ng-container *ngFor="let validation of validation_messages.otp">
+            <div class="error-message"
+              *ngIf="validations_form.get('otp').hasError(validation.type) && (validations_form.get('otp').dirty || validations_form.get('otp').touched)">
+              <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+            </div>
+          </ng-container>
+        </div>
+        <div text-center class="ion-padding">
+          <button type="submit" [disabled]="!validations_form.valid" class="btn btn-danger btn-round">Verify</button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </form>
+
+  <div text-center class="ion-padding">
+    <span>Already a member ? </span>
+    <ion-text color="primary" routerLink="/login" routerDirection="forward">Login Now</ion-text>
+  </div>
+
+
+</ion-content>

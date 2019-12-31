@@ -15,14 +15,14 @@
     <ion-card>
       <ion-card-content>
         <ion-item>
-          <ion-label position="floating" color="success">Mobile
+          <ion-label position="floating" color="success">Email ID
           </ion-label>
-          <ion-input type="text" formControlName="mobileNo"></ion-input>
+          <ion-input type="text" formControlName="email"></ion-input>
         </ion-item>
         <div class="validation-errors">
-          <ng-container *ngFor="let validation of validation_messages.mobileNo">
+          <ng-container *ngFor="let validation of validation_messages.email">
             <div class="error-message"
-              *ngIf="validations_form.get('mobileNo').hasError(validation.type) && (validations_form.get('mobileNo').dirty || validations_form.get('mobileNo').touched)">
+              *ngIf="validations_form.get('email').hasError(validation.type) && (validations_form.get('email').dirty || validations_form.get('email').touched)">
               <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
             </div>
           </ng-container>

@@ -115,7 +115,8 @@
 
   <div text-center class="ion-padding">
     <span>Already a member ? </span>
-    <ion-text color="primary" (click)="navigationToPage('/login')">Login Now</ion-text>
+    <ion-text color="primary" routerLink="/login" routerDirection="forward">Login Now</ion-text>
+    <!-- <ion-text color="primary" (click)="navigationToPage('/login')">Login Now</ion-text> -->
   </div>
 
 </ion-content>
