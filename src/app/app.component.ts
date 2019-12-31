@@ -21,9 +21,8 @@ export class AppComponent {
     },
     {
       title: 'Announcements',
-      url: '/list',
+      url: '/announcments',
       icon: 'fa fa-bullhorn fa-1x',
-      pageMode:'Announcements'
     },
     {
       title: 'Downloads',

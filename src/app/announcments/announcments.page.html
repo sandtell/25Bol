@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar color="primary" >
+    <ion-title>Announcments</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list class="md list-md hydrated">
+    
+    <ion-item *ngFor="let i of jsonItems"  >
+      <!-- <ion-avatar slot="start" class="md hydrated">
+        <img src="./avatar.svg">
+      </ion-avatar> -->
+      <ion-label >
+        <h3 [innerHTML]="i.announce_title"></h3>
+        <p [innerHTML]="i.created_at" ></p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  
+  <div *ngIf="noRecord" class="h-100 row align-items-center">
+    <div class="col text-center text-danger">
+      No Data
+    </div>
+  </div>
+</ion-content>

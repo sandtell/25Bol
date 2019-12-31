@@ -48,6 +48,10 @@ const routes: Routes = [
   {
     path: 'changepwd',
     loadChildren: () => import('./changepwd/changepwd.module').then( m => m.ChangepwdPageModule)
+  },
+  {
+    path: 'announcments',
+    loadChildren: () => import('./announcments/announcments.module').then( m => m.AnnouncmentsPageModule)
   }
 ];
 
