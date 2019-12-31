@@ -53,7 +53,7 @@ export class OtpPage implements OnInit {
     const otp = localStorage.getItem('lsOTP');
     // console.log('otp = ', otp);
     let data: any;
-    const url = this.config.domainURL + 'OTP/' + userID + '/' + otp;
+    const url = this.config.domainURL + 'OTP/' + userID + '/' + values.otp;
     const loading = await this.loadingCtrl.create({
       message: 'Please Wait...',
     });
