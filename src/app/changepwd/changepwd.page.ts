@@ -99,7 +99,7 @@ export class ChangepwdPage implements OnInit {
         console.log(result.data.user_id);
 
        if (result.status === "1") {
-          this.router.navigateByUrl('login');
+          this.router.navigateByUrl('intro');
           this.presentToast(result.message);
           loading.dismiss();
         }

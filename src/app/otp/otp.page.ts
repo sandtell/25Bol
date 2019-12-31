@@ -72,8 +72,8 @@ export class OtpPage implements OnInit {
           this.router.navigateByUrl('changepwd');
         }else {
           if (result.status === "1") {
-            this.authService.login();
-            this.router.navigateByUrl('dashboard');
+            // this.authService.login();
+            this.router.navigateByUrl('intro');
             this.presentToast(result.message);
             loading.dismiss();
           }
