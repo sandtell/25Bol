@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 import { NavController, LoadingController, ToastController, AlertController } from "@ionic/angular";
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Storage } from '@ionic/storage';
@@ -6,30 +6,25 @@ import { Router } from '@angular/router';
 import { ConfigService } from '../services/config.service';
 import { HttpClient } from '@angular/common/http';
 import { PasswordValidator } from '../password.validator';
-import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
-
-
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.page.html',
-  styleUrls: ['./register.page.scss'],
+  selector: 'app-changepwd',
+  templateUrl: './changepwd.page.html',
+  styleUrls: ['./changepwd.page.scss'],
 })
-export class RegisterPage implements OnInit {
+export class ChangepwdPage implements OnInit {
+
   validations_form: FormGroup;
   matching_passwords_group: FormGroup;
   public showPassword: boolean = true;
   public showConfirmPassword: boolean = true;
   constructor(
-    private navCtrl: NavController,
     public formBuilder: FormBuilder,
-    private storage: Storage,
     public loadingCtrl: LoadingController,
     public toastController: ToastController,
     public alertCtrl: AlertController,
     private router: Router,
     private config: ConfigService,
-    public http: HttpClient,
-    private iab: InAppBrowser
+    public http: HttpClient, 
   ) { }
 
   ngOnInit() {
@@ -46,42 +41,12 @@ export class RegisterPage implements OnInit {
     });
 
     this.validations_form = this.formBuilder.group({
-      fullName: new FormControl('', Validators.compose([
-        Validators.required,
-        Validators.pattern('^[a-zA-Z ]{2,30}$')
-        // Validators.pattern('^[a-zA-Z]+$')
-      ])),
-
-      email: new FormControl('', Validators.compose([
-        Validators.required,
-        Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
-      ])),
-      mobileNo: new FormControl('', Validators.compose([
-        Validators.minLength(10),
-        Validators.maxLength(10),
-        Validators.required,
-        Validators.pattern('^[0-9]*$')
-      ])),
       matching_passwords: this.matching_passwords_group,
 
     });
   }
 
   validation_messages = {
-    fullName: [
-      { type: 'required', message: 'Name is required.' },
-      { type: 'pattern', message: 'Number are not allowed' }
-    ],
-    email: [
-      { type: 'required', message: 'Email is required.' },
-      { type: 'pattern', message: 'Please enter a valid email.' }
-    ],
-    mobileNo: [
-      { type: 'required', message: 'Mobile number is required.' },
-      { type: 'minlength', message: 'Mobile No must be at least 10' },
-      { type: 'maxlength', message: 'Mobile No cannot be more than 10' },
-      { type: 'pattern', message: 'Chapter are not allowed' }
-    ],
     password: [
       { type: 'required', message: 'Password is required.' },
       { type: 'minlength', message: 'Password must be at least 5 characters long.' },
@@ -106,28 +71,25 @@ export class RegisterPage implements OnInit {
   }
  
 
-
-  openExternalURL() {
-    this.iab.create('http://sandtell.com/', '_system');
-  }
-  
+ 
 
   async onSubmit(values){
-    console.log(values);
+    console.log(values);   
 
-    let signupValues = {
-      username : values.fullName,
-      email : values.email,
-      mobileNo : values.mobileNo,
-      password : values.matching_passwords.password
+    console.log('USER ID =',localStorage.getItem('lsUserID'));
+    // console.log('OTP = ',localStorage.getItem('changePWDOTP'));
+    
+    let changePWDValues = {
+      id : localStorage.getItem('lsUserID'),
+      new_password : values.matching_passwords.password
     }
 
     let data: any;
-    const url = this.config.domainURL + 'signup';
+    const url = this.config.domainURL + 'change_password';
     const loading = await this.loadingCtrl.create({
-      message: 'Creating New User...',
+      message: 'Changing Password...',
     });
-    data = this.http.post(url,signupValues);
+    data = this.http.post(url,changePWDValues);
     loading.present().then(() => {
       data.subscribe(result => {
         console.log(result);
@@ -136,17 +98,8 @@ export class RegisterPage implements OnInit {
 
         console.log(result.data.user_id);
 
-       if (result.status === "1" && result.data.isVerified === 0) {
-
-
-        localStorage.setItem('lsUserID',result.data.user_id);
-        localStorage.setItem('lsUserName',result.data.user_name);
-        localStorage.setItem('lsEmail',result.data.user_email);
-        localStorage.setItem('lsMobileNo',result.data.user_mobile);
-        localStorage.setItem('lsIsVerified',result.data.isVerified);
-        localStorage.setItem('lsOTP',result.data.OTP);
-
-          this.router.navigateByUrl('otp');
+       if (result.status === "1") {
+          this.router.navigateByUrl('login');
           this.presentToast(result.message);
           loading.dismiss();
         }
@@ -163,6 +116,7 @@ export class RegisterPage implements OnInit {
       loading.dismiss();
     });
     this.validations_form.reset();
+    
   }
 
 

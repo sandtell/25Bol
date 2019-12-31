@@ -58,7 +58,9 @@ export class ForgotpwdPage implements OnInit {
           localStorage.setItem('lsMobileNo',result.data[0].user_mobile);
           localStorage.setItem('lsIsVerified',result.data[0].isVerified);
           localStorage.setItem('lsOTP',result.data[0].OTP);
-          localStorage.setItem('lsApiToken',result.data[0].api_token);       
+          localStorage.setItem('lsApiToken',result.data[0].api_token);
+
+          localStorage.setItem('lsChangePwd','true');
 
           this.router.navigateByUrl('otp');
           this.presentToast(result.message);

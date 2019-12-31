@@ -44,6 +44,10 @@ const routes: Routes = [
   {
     path: 'otp',
     loadChildren: () => import('./otp/otp.module').then( m => m.OtpPageModule)
+  },
+  {
+    path: 'changepwd',
+    loadChildren: () => import('./changepwd/changepwd.module').then( m => m.ChangepwdPageModule)
   }
 ];
 

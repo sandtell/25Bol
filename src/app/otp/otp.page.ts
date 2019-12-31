@@ -50,7 +50,10 @@ export class OtpPage implements OnInit {
 
   async onSubmit(values) {
     const userID = localStorage.getItem('lsUserID');
-    const otp = localStorage.getItem('lsOTP');
+
+    const changePWd = localStorage.getItem('lsChangePwd');
+
+    // const otp = localStorage.getItem('lsOTP');
     // console.log('otp = ', otp);
     let data: any;
     const url = this.config.domainURL + 'OTP/' + userID + '/' + values.otp;
@@ -61,16 +64,27 @@ export class OtpPage implements OnInit {
     loading.present().then(() => {
       data.subscribe(result => {
         console.log(result);
-        if (result.status === "1") {
-          this.authService.login();
-          this.router.navigateByUrl('dashboard');
-          this.presentToast(result.message);
-          loading.dismiss();
+
+        console.log(changePWd);
+
+        if(changePWd){
+          // localStorage.setItem('changePWDOTP',values.otp);
+          this.router.navigateByUrl('changepwd');
+        }else {
+          if (result.status === "1") {
+            this.authService.login();
+            this.router.navigateByUrl('dashboard');
+            this.presentToast(result.message);
+            loading.dismiss();
+          }
+          else if (result.status === "0") {
+            this.presentToast(result.message);
+            loading.dismiss();
+          }
         }
-        else if (result.status === "0") {
-          this.presentToast(result.message);
-          loading.dismiss();
-        }
+
+        
+       
         loading.dismiss();
       });
       return loading.present();
