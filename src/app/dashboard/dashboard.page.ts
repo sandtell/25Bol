@@ -18,6 +18,9 @@ export class DashboardPage implements OnInit, OnDestroy, AfterViewInit {
   ) { }
 
   ngOnInit() {
+
+    console.log(localStorage.getItem('lsApiToken'));
+
   }
 
   ngAfterViewInit() {

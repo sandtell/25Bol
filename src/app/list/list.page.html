@@ -10,7 +10,12 @@
 </ion-header>
 
 <ion-content>
-  <div class="h-100 row align-items-center">
+
+  <div class="ion-padding"  *ngFor="let i of jsonItems" >
+    <p [innerHTML]="i.pages_content" ></p>
+  </div>
+
+  <div *ngIf="noRecord" class="h-100 row align-items-center">
     <div class="col text-center text-danger">
       No Data
     </div>
