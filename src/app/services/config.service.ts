@@ -6,5 +6,6 @@ import { Injectable } from '@angular/core';
 export class ConfigService {
 
   public domainURL = "http://25bol.sandtell.com/api/";
+  public assetsURL = "http://25bol.sandtell.com/";
   constructor() { }
 }

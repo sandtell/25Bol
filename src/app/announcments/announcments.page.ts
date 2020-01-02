@@ -3,7 +3,7 @@ import { ConfigService } from '../services/config.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LoadingController } from '@ionic/angular';
 import { Observable } from 'rxjs';
-
+import { MenuController } from '@ionic/angular';
 @Component({
   selector: 'app-announcments',
   templateUrl: './announcments.page.html',
@@ -16,8 +16,13 @@ export class AnnouncmentsPage implements OnInit {
     private config:ConfigService,
     public http: HttpClient,
     public loadingCtrl: LoadingController,
+    public menuCtrl: MenuController,
   ) { }
 
+  ionViewWillEnter() {
+    this.menuCtrl.enable(true);
+  }
+  
   ngOnInit() {
     this.getAnnouncmentsData();
   }

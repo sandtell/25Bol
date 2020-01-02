@@ -9,7 +9,7 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'home',
+    path: 'home/:categoryID/:categoryName',
     canActivate: [AuthGuardService],
     loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   },

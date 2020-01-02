@@ -4,53 +4,27 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      25 Bols
+      {{categoryName}}
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content fullscreen>
   <div class="customImg">
-    <img src="../../assets/dashboard.jpg" class="imgResposive">    
+    <img src="../../assets/dashboard.jpg" class="imgResposive">
+    <img src="../../assets/fundamental.jpeg" class="imgResposive">
   </div>
   <ion-list>
     <!-- <ion-list-header>
       Recent Conversations
     </ion-list-header> -->
 
-    <ion-item>
+    <ion-item *ngFor="let c of categoryListJson"  >
       <ion-avatar slot="start">
-        <img src="https://ionicframework.com/docs/demos/api/list/avatar-finn.png">
+      <img src="{{config.assetsURL}}/{{c.image}}">
       </ion-avatar>
       <ion-label>
-        <h2>01 Bol - Gati 4</h2>
-      </ion-label>
-    </ion-item>
-
-    <ion-item>
-      <ion-avatar slot="start">
-        <img src="https://ionicframework.com/docs/demos/api/list/avatar-han.png">
-      </ion-avatar>
-      <ion-label>
-        <h2>01 Bol - Jaati 5</h2>
-      </ion-label>
-    </ion-item>
-
-    <ion-item>
-      <ion-avatar slot="start">
-        <img src="https://ionicframework.com/docs/demos/api/list/avatar-rey.png">
-      </ion-avatar>
-      <ion-label>
-        <h2>01 Bol - Kaya 6</h2>
-      </ion-label>
-    </ion-item>
-
-    <ion-item>
-      <ion-avatar slot="start">
-        <img src="https://ionicframework.com/docs/demos/api/list/avatar-luke.png">
-      </ion-avatar>
-      <ion-label>
-        <h2>01 Bol - Indriya 5</h2>
+        <h2 [innerHTML]="c.category_name" ></h2>
       </ion-label>
     </ion-item>
   </ion-list>

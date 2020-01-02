@@ -1,9 +1,9 @@
 <ion-header>
   <ion-toolbar color="primary" >
-    <ion-title>Announcments</ion-title>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
+    <ion-title>Announcments</ion-title>    
   </ion-toolbar>
 </ion-header>
 
@@ -17,7 +17,7 @@
       </ion-avatar> -->
       <ion-label style="border:0;" routerLink="/announcementdetails/{{ i.announce_id }}" routerDirection="forward" >
         <h3 [innerHTML]="i.announce_title"></h3>
-        <p [innerHTML]="i.created_at" ></p>
+        <p [innerHTML]="i.created_at | date:'d MMM yyyy hh:mm a' " ></p>
       </ion-label>
     </ion-item>
   </ion-list>
