@@ -15,7 +15,7 @@
       <!-- <ion-avatar slot="start" class="md hydrated">
         <img src="./avatar.svg">
       </ion-avatar> -->
-      <ion-label >
+      <ion-label style="border:0;" routerLink="/announcementdetails/{{ i.announce_id }}" routerDirection="forward" >
         <h3 [innerHTML]="i.announce_title"></h3>
         <p [innerHTML]="i.created_at" ></p>
       </ion-label>

@@ -3,10 +3,14 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Announcementd Details</ion-title>
+    <ion-title>Announcement Details</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
-</ion-content>
+<ion-content class="ion-padding">
+  <div *ngFor="let a of jsonItems">
+    <h6 ion-text [innerHTML]="a.announce_title" ></h6>
+  
+    <p ion-text text-justify [innerHtml]="a.announce_content"></p>
+  </div>
+  </ion-content>
