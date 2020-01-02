@@ -26,9 +26,8 @@ export class AppComponent {
     },
     {
       title: 'Downloads',
-      url: '/list',
+      url: '/download',
       icon: 'fa fa-download fa-1x',
-      pageMode:'Downloads'
     },
     {
       title: 'About Us',

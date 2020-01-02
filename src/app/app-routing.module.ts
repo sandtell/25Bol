@@ -60,6 +60,10 @@ const routes: Routes = [
   {
     path: 'categorydetails/:categoryID/:categoryName',
     loadChildren: () => import('./categorydetails/categorydetails.module').then( m => m.CategorydetailsPageModule)
+  },
+  {
+    path: 'download',
+    loadChildren: () => import('./download/download.module').then( m => m.DownloadPageModule)
   }
 ];
 

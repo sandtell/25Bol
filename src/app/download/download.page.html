@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar color="primary" >
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Download</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>    
+    <ion-item *ngFor="let d of jsonItems" >
+      <div slot="end" >
+        <ion-button color="danger" expand="full" class="ion-padding-left ion-padding-right" (click)="downloadFile(d.download_url)"  >Download</ion-button>
+      </div>      
+      <ion-label >
+        <h3 [innerHTML]="d.download_title"></h3>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <div *ngIf="noRecord" class="h-100 row align-items-center">
+    <div class="col text-center text-danger">
+      No Data
+    </div>
+  </div>
+</ion-content>

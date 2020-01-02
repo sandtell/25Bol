@@ -27,7 +27,7 @@ export class CategorydetailsPage implements OnInit {
 
   ngOnInit() {
     this.categoryID = this.activatedRoute.snapshot.paramMap.get('categoryID');
-    this.categoryName = this.activatedRoute.snapshot.paramMap.get('categoryName');
+    // this.categoryName = this.activatedRoute.snapshot.paramMap.get('categoryName');
     this.getCategoryDataByID(this.categoryID);
   }
 
@@ -46,6 +46,8 @@ export class CategorydetailsPage implements OnInit {
     loading.present().then(() => {
       data.subscribe(result => {
         console.log(result);
+
+        this.categoryName = result.data.content.category_name;
         this.categoryContent = result.data.content.content;
 
         if (result.data.nav_page.previous[0] != null) {

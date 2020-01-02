@@ -17,6 +17,9 @@ import { Network } from '@ionic-native/network/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
+import { File } from '@ionic-native/file/ngx';
+import { FileTransfer } from '@ionic-native/file-transfer/ngx';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -29,6 +32,8 @@ import { IonicStorageModule } from '@ionic/storage';
     BrowserAnimationsModule
   ],
   providers: [
+    File,
+    FileTransfer,
     StatusBar,
     SplashScreen,
     Network,
