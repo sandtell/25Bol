@@ -14,6 +14,7 @@ export class HomePage {
   public categoryID;
   public categoryName: string = '';
   public categoryListJson :any = [];
+  public content:string='';
   constructor(
     private authService: AuthenticationService,
     private router: Router,
@@ -31,27 +32,24 @@ export class HomePage {
     this.getCategoryDataByID(this.categoryID);    
   }
 
-  async  getCategoryDataByID(catID) {   
-    
+  async  getCategoryDataByID(catID) {    
     const apiToken = localStorage.getItem('lsApiToken');
     const userEmailID = localStorage.getItem('lsEmail');
-
-    console.log(apiToken);
-    console.log(userEmailID);
-    
+    // console.log(apiToken);
+    // console.log(userEmailID);    
     const headers = new HttpHeaders().set('Api_Token', apiToken).set('User_Email', userEmailID);
     let data: Observable<any>;
     let url = this.config.domainURL + 'dashboard/' + catID;
     const loading = await this.loadingCtrl.create({
       message: 'Please Wait...',
     });
-
     data = this.http.get(url,{ headers: headers });
     loading.present().then(() => {
       data.subscribe(result => {
-        console.log(result);
-        console.log(result.data.category_list);
-        this.categoryListJson = result.data.category_list;
+        if(result.data.length != 0) {
+          this.content = result.data.parent_page.content;
+          this.categoryListJson = result.data.category_list;
+        }
         loading.dismiss();
       });
       return loading.present();
@@ -68,6 +66,7 @@ export class HomePage {
   }
 
   logoutFn() {
+    localStorage.clear();
     this.authService.logout();
     // this.router.navigateByUrl('login');
     this.router.navigateByUrl('intro');

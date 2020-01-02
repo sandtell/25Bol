@@ -14,17 +14,23 @@
     <img src="../../assets/dashboard.jpg" class="imgResposive">
     <img src="../../assets/fundamental.jpeg" class="imgResposive">
   </div>
+
+  <div class="ion-padding" >
+    <p [innerHTML]="content" text-justify ></p>
+  </div>
+
   <ion-list>
     <!-- <ion-list-header>
-      Recent Conversations
-    </ion-list-header> -->
-
-    <ion-item *ngFor="let c of categoryListJson"  >
+        Recent Conversations
+      </ion-list-header> -->
+  
+    <ion-item *ngFor="let c of categoryListJson" routerLink="/categorydetails/{{c.category_id}}/{{c.category_name}}"
+      routerDirection="forward">
       <ion-avatar slot="start">
-      <img src="{{config.assetsURL}}/{{c.image}}">
+        <img src="{{config.assetsURL}}/{{c.image}}">
       </ion-avatar>
       <ion-label>
-        <h2 [innerHTML]="c.category_name" ></h2>
+        <h2 [innerHTML]="c.category_name"></h2>
       </ion-label>
     </ion-item>
   </ion-list>

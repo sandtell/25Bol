@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      {{categoryName}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <p [innerHTML]="categoryContent"></p>
+</ion-content>
+
+<ion-footer >
+  <ion-toolbar >
+    <ion-buttons slot="start" class="ion-padding" *ngIf="previousEnable" (click)="previousNextCatDetails(previous)" >
+      <i class="fa fa-chevron-left" ></i>
+    </ion-buttons>
+    <ion-buttons slot="end" class="ion-padding" *ngIf="nextEnable" (click)="previousNextCatDetails(next)"  >
+      <i class="fa fa-chevron-right" ></i>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
