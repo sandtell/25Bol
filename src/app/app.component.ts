@@ -217,23 +217,16 @@ export class AppComponent {
 
 
   getSubcategory() {    
-    const apiToken = localStorage.getItem('lsApiToken');
-    const userEmailID = localStorage.getItem('lsEmail');
-    // console.log(apiToken);
-    // console.log(userEmailID);    
-    const headers = new HttpHeaders().set('Api_Token', apiToken).set('User_Email', userEmailID);
     let data: Observable<any>;
-    let url = this.config.domainURL + 'category';
-    
-    data = this.http.get(url,{ headers: headers });
+    let url = this.config.domainURL + 'default_category';
+    data = this.http.get(url);
       data.subscribe(result => {
+        console.log(result.data[0].sub_category);
         this.appPages =  result.data[0].sub_category;
         console.log(result.data[0].sub_category);
       }, error => {
-        console.log(error);
-       
-      });
-    
+        console.log(error);       
+      });    
    }
 
 }

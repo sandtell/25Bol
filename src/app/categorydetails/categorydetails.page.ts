@@ -47,8 +47,13 @@ export class CategorydetailsPage implements OnInit {
       data.subscribe(result => {
         console.log(result);
 
-        this.categoryName = result.data.content.category_name;
-        this.categoryContent = result.data.content.content;
+        if (result.data.content.category_name != null) {
+          this.categoryName = result.data.content.category_name;
+        }
+
+        if (result.data.content.content != null) {
+          this.categoryContent = result.data.content.content;
+        }
 
         if (result.data.nav_page.previous[0] != null) {
           this.previous = result.data.nav_page.previous[0].category_id;

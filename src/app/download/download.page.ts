@@ -15,6 +15,8 @@ import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/ng
 export class DownloadPage implements OnInit {
   public jsonItems: any =[];
   public noRecord:boolean = false;
+  // fileTransfer: FileTransferObject = this.transfer.create();
+  private fileTransfer: FileTransferObject; 
   constructor(
     public config:ConfigService,
     public http: HttpClient,
@@ -61,15 +63,29 @@ export class DownloadPage implements OnInit {
     });
    }
 
+
+  //  async downloadFile(url) {
+  //   await this.fileTransfer.download(url, this.file.externalRootDirectory + '/Download/' + "abc.jpg");
+  // }
+  
+  
+
    downloadFile(url) { 
     const fileTransfer: FileTransferObject = this.transfer.create();
     const fullURL = this.config.assetsURL + url;
 
-    alert(fullURL);
+    const fileType = fullURL.split('/').pop();
 
-    fileTransfer.download(fullURL, this.file.dataDirectory).then((entry) => {
+    // alert(fullURL);
+    // alert(fileType);
+
+    fileTransfer.download(fullURL, this.file.externalRootDirectory + '/Download/' + fileType).then((entry) => {
+      // alert('71 =' + entry.toURL());
+      alert('download complete');
       console.log('download complete: ' + entry.toURL());
     }, (error) => {
+      alert('74' + error);
+      alert('75' + JSON.stringify(error));
       // handle error
     });
    }
