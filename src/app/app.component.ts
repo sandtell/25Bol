@@ -5,6 +5,9 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Storage } from '@ionic/storage';
 import { AuthenticationService } from './services/authentication.service';
 import { Network } from '@ionic-native/network/ngx';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { ConfigService } from './services/config.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -13,12 +16,33 @@ import { Network } from '@ionic-native/network/ngx';
 })
 export class AppComponent {   
   public userName:string='';
-  public appPages = [
-    {
-      title: 'Dashboard',
-      url: '/dashboard',
-      icon: 'fa fa-home fa-1x',
-    },
+
+  showLevel1 = null;
+  showLevel2 = null;
+  showLevel3 = null;
+  public appPages;
+
+  // public appPages = [
+    
+  //   {
+  //     sub_category : [
+  //       {
+  //         category_id : 12,
+  //         category_name: "01 BOL GATI 4",
+  //       },
+  //       {
+  //         category_id : 13,
+  //         category_name: "02 BOL JAATI 5",
+  //       },
+  //       {
+  //         category_id : 15,
+  //         category_name: "03-BOL KAYA",
+  //       }
+  //     ]
+  //   }
+  // ];
+
+  public staticMenu = [
     {
       title: 'Announcements',
       url: '/announcments',
@@ -52,7 +76,7 @@ export class AppComponent {
       icon: 'fa fa-sign-out fa-1x',
       pageMode:'Logout'
     }
-  ];
+  ]
 
   constructor(
     private platform: Platform,
@@ -64,9 +88,57 @@ export class AppComponent {
     public alertCtrl :AlertController,
     private toastCtrl: ToastController,
     private network: Network,
-
+    public config:ConfigService,
+    public http: HttpClient,
   ) {
     this.initializeApp();
+  }
+
+
+  clearLevel() {
+    this.showLevel1 = null;
+    this.showLevel2 = null;
+    this.showLevel3 = null;
+  }
+
+  
+  toggleLevel1(idx) {
+    if (this.isLevel1Shown(idx)) {
+      this.showLevel1 = null;
+    } else {
+      this.showLevel1 = idx;
+    }
+  };
+  
+  toggleLevel2(idx) {
+    if (this.isLevel2Shown(idx)) {
+      this.showLevel1 = null;
+      this.showLevel2 = null;
+    } else {
+      this.showLevel1 = idx;
+      this.showLevel2 = idx;
+    }
+  };
+
+  toggleLevel3(idx: string) {
+    if (this.isLevel3Shown(idx)) {
+      this.showLevel3 = null;
+    } else {
+      this.showLevel2 = idx;
+      this.showLevel3 = idx;
+    }
+  }
+
+  isLevel1Shown(idx) {
+    return this.showLevel1 === idx;
+  };
+  
+  isLevel2Shown(idx) {
+    return this.showLevel2 === idx;
+  };
+
+  isLevel3Shown(idx: string) {
+    return this.showLevel3 === idx;
   }
 
   initializeApp() {
@@ -74,6 +146,9 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       this.statusBar.backgroundColorByHexString("#A71E16");
+
+      this.getSubcategory();
+
        // watch network for a disconnection
     this.network.onDisconnect().subscribe(() => {
       console.log('network was disconnected ☹️');
@@ -139,5 +214,26 @@ export class AppComponent {
     });
     toast.present();
   }
+
+
+  getSubcategory() {    
+    const apiToken = localStorage.getItem('lsApiToken');
+    const userEmailID = localStorage.getItem('lsEmail');
+    // console.log(apiToken);
+    // console.log(userEmailID);    
+    const headers = new HttpHeaders().set('Api_Token', apiToken).set('User_Email', userEmailID);
+    let data: Observable<any>;
+    let url = this.config.domainURL + 'category';
+    
+    data = this.http.get(url,{ headers: headers });
+      data.subscribe(result => {
+        this.appPages =  result.data[0].sub_category;
+        console.log(result.data[0].sub_category);
+      }, error => {
+        console.log(error);
+       
+      });
+    
+   }
 
 }

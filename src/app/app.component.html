@@ -6,8 +6,50 @@
         <div class="bottomright">Version 1.0</div>
       </div>
       <ion-content>
-        <ion-list lines="none">
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
+        <ion-list lines="full">
+          <ion-menu-toggle auto-hide="false" class="first-level">
+            <ion-item [routerDirection]="'root'" [routerLink]="'/dashboard'" (click)="clearLevel()">
+              <i slot="start" class="fa fa-home fa-1x"></i>
+              <ion-label>Dashboard</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+
+        <!-- Start dynamic Sidemenu -->
+        
+        <ion-item lines="full"   [routerDirection]="'root'" (click)="toggleLevel1('idx'+1)"
+          [ngClass]="{active: isLevel1Shown('idx'+1)}">
+          <ion-label>
+            <ion-icon [name]="isLevel1Shown('idx'+1) ? 'arrow-dropdown-circle' : 'arrow-dropright-circle'" slot="end">
+            </ion-icon>
+              25Bol
+            <ul *ngIf="isLevel1Shown('idx'+1)" class="level1">
+              <li *ngFor="let i1 of appPages; let j=index;" (click)="toggleLevel2('idx'+1+'idx'+j)"
+                [ngClass]="{active: isLevel2Shown('idx'+i+'idx'+j)}">
+                <!-- <ion-icon [name]="isLevel2Shown('idx'+i+'idx'+j) ? 'arrow-dropdown-circle' : 'arrow-dropright-circle'"
+                  slot="end">
+                </ion-icon> -->
+
+                <ion-menu-toggle auto-hide="false" class="first-level">
+                  <ion-item  lines="none" [routerDirection]="'root'" routerLink="/categorydetails/{{i1.category_id}}/{{i1.category_name}}" (click)="clearLevel()">
+                    <ion-label> {{i1.category_name}}</ion-label>
+                  </ion-item>
+                </ion-menu-toggle>
+
+                <!-- <div routerLink="/categorydetails/{{i1.category_id}}/{{i1.category_name}}"
+                routerDirection="forward" auto-hide="false" >
+                {{i1.category_name}}
+                </div> -->
+                
+              </li>
+            </ul>
+          </ion-label>
+        </ion-item>
+
+        <!-- End dynamic Sidemenu -->
+
+        <ion-list lines="full">
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of staticMenu">
             <ion-item-divider [routerDirection]="'root'" routerLink="/{{p.url}}/{{p.pageMode}}" style="outline: none;"  >
               <i slot="start" [class]="p.icon" ></i>
               <ion-label >
@@ -16,8 +58,53 @@
             </ion-item-divider>
           </ion-menu-toggle>
         </ion-list>
+
+
+        <!-- <ion-list lines="none">
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages let i=index" (click)="toggleLevel1('idx'+i)" [ngClass]="{active: isLevel1Shown('idx'+i)}">
+            <ion-item-divider [routerDirection]="'root'" routerLink="/{{p.url}}/{{p.pageMode}}" style="outline: none;"  >
+              <i slot="start" [class]="p.icon" ></i>
+              <ion-label >
+                {{p.title}}
+              </ion-label>
+            </ion-item-divider>
+
+            <ion-list *ngIf="isLevel1Shown('idx'+i)">
+              <ion-item *ngFor="let s of p.submenu; let i2=index" text-wrap (click)="toggleLevel2('idx'+i+'idx'+i2)" [ngClass]="{active: isLevel2Shown('idx'+i+'idx'+i2)}">
+                <h4 auto-hide="false">
+                  {{s.category_name}}
+                  <ion-icon color="success" slot="end" item-right [name]="isLevel2Shown('idx'+i+'idx'+i2) ? 'arrow-dropdown' : 'arrow-dropright'"></ion-icon>
+                </h4>
+              </ion-item>
+            </ion-list>
+
+          </ion-menu-toggle>
+        </ion-list> -->
       </ion-content>
     </ion-menu>
     <ion-router-outlet id="main-content"></ion-router-outlet>
   </ion-split-pane>
 </ion-app>
+<!-- <ion-content>
+  <ion-list lines="full">
+    <ion-menu-toggle auto-hide="false" class="first-level">
+      <ion-item [routerDirection]="'root'" [routerLink]="['/home']" (click)="clearLevel()">
+        <ion-label><ion-icon name="home"></ion-icon>Home</ion-label>
+      </ion-item>
+    </ion-menu-toggle>
+    <ion-item *ngFor="let p of appPages; let i=index;" [routerDirection]="'root'" (click)="toggleLevel1('idx'+i)" [ngClass]="{active: isLevel1Shown('idx'+i)}">
+      <ion-label>
+        <ion-icon [name]="isLevel1Shown('idx'+i) ? 'arrow-dropdown-circle' : 'arrow-dropright-circle'" slot="end"></ion-icon>
+        {{p.title}}
+        <ul *ngIf="isLevel1Shown('idx'+i)" class="level1">
+          <li *ngFor="let i1 of p.submenu; let j=index;" (click)="toggleLevel2('idx'+i+'idx'+j)"
+            [ngClass]="{active: isLevel2Shown('idx'+i+'idx'+j)}">
+            <ion-icon [name]="isLevel2Shown('idx'+i+'idx'+j) ? 'arrow-dropdown-circle' : 'arrow-dropright-circle'" slot="end">
+            </ion-icon>
+            {{i1.category_name}}
+          </li>
+        </ul>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content> -->
