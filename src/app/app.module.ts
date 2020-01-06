@@ -19,6 +19,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { File } from '@ionic-native/file/ngx';
 import { FileTransfer, FileTransferObject   } from '@ionic-native/file-transfer/ngx';
+import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
+import { Downloader } from '@ionic-native/downloader/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -41,6 +43,8 @@ import { FileTransfer, FileTransferObject   } from '@ionic-native/file-transfer/
     InAppBrowser,
     AuthGuardService,
     AuthenticationService,
+    AndroidPermissions,
+    Downloader,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

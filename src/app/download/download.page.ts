@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuController, LoadingController } from '@ionic/angular';
+import { MenuController, LoadingController, ToastController } from '@ionic/angular';
 import { ConfigService } from '../services/config.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { File } from '@ionic-native/file/ngx';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/ngx';
-// import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
-
+// import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
+import { Downloader, DownloadRequest, NotificationVisibility } from '@ionic-native/downloader/ngx';
 @Component({
   selector: 'app-download',
   templateUrl: './download.page.html',
@@ -18,12 +18,15 @@ export class DownloadPage implements OnInit {
   // fileTransfer: FileTransferObject = this.transfer.create();
   private fileTransfer: FileTransferObject; 
   constructor(
+   //  private androidPermissions: AndroidPermissions,
     public config:ConfigService,
     public http: HttpClient,
     public loadingCtrl: LoadingController,
     public menuCtrl: MenuController,
     private file: File,
     private transfer: FileTransfer,
+    private toastCtrl : ToastController,
+    private downloader: Downloader
   ) { }
 
    
@@ -68,6 +71,23 @@ export class DownloadPage implements OnInit {
   //   await this.fileTransfer.download(url, this.file.externalRootDirectory + '/Download/' + "abc.jpg");
   // }
   
+
+  // getPermission(fileURL) {
+  //   this.androidPermissions.hasPermission(this.androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE)
+  //     .then(status => {
+  //       if (status.hasPermission) {
+  //         this.downloadFile(fileURL);
+  //       } 
+  //       else {
+  //         this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE)
+  //           .then(status => {
+  //             if(status.hasPermission) {
+  //               this.downloadFile(fileURL);
+  //             }
+  //           });
+  //       }
+  //     });
+  // }
   
 
    downloadFile(url) { 
@@ -76,18 +96,46 @@ export class DownloadPage implements OnInit {
 
     const fileType = fullURL.split('/').pop();
 
+    const request: DownloadRequest = {
+      uri: fullURL,
+      title: fileType,
+      description: '',
+      mimeType: '',
+      visibleInDownloadsUi: true,
+      notificationVisibility: NotificationVisibility.VisibleNotifyCompleted,
+      destinationInExternalFilesDir: {
+          dirType: 'Download',
+          subPath: fileType
+      }
+  };
+
+  
+  this.downloader.download(request).then((location: string) => this.presentToast('File downloaded at:'+location))
+              .catch((error: any) => alert('error' + error));
+
+
+
     // alert(fullURL);
     // alert(fileType);
 
-    fileTransfer.download(fullURL, this.file.externalRootDirectory + '/Download/' + fileType).then((entry) => {
-      // alert('71 =' + entry.toURL());
-      alert('download complete');
-      console.log('download complete: ' + entry.toURL());
-    }, (error) => {
-      alert('74' + error);
-      alert('75' + JSON.stringify(error));
-      // handle error
-    });
+    // fileTransfer.download(fullURL, this.file.externalRootDirectory + '/Download/' + fileType).then((entry) => {
+    //   // alert('71 =' + entry.toURL());
+    //   this.presentToast('download complete');
+    //   console.log('download complete: ' + entry.toURL());
+    // }, (error) => {
+    //   alert('74' + error);
+    //   alert('75' + JSON.stringify(error));
+    //   // handle error
+    // });
    }
+
+   async presentToast(msg: string) {
+    const toast = await this.toastCtrl.create({
+      message: msg,
+      duration: 2000
+    });
+    toast.present();
+  }
+   
 
 }
