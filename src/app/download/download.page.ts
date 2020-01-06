@@ -110,7 +110,7 @@ export class DownloadPage implements OnInit {
   };
 
   
-  this.downloader.download(request).then((location: string) => this.presentToast('File downloaded at:'+location))
+  this.downloader.download(request).then((location: string) => this.presentToast('Downloaded at:'+location))
               .catch((error: any) => alert('error' + error));
 
 
@@ -131,8 +131,10 @@ export class DownloadPage implements OnInit {
 
    async presentToast(msg: string) {
     const toast = await this.toastCtrl.create({
+      color: 'dark',
       message: msg,
-      duration: 2000
+      duration: 5000,
+      showCloseButton: true
     });
     toast.present();
   }
