@@ -3,8 +3,9 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ConfigService } from '../services/config.service';
 import { HttpClient } from '@angular/common/http';
-import { LoadingController, ToastController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
 import { AuthenticationService } from '../services/authentication.service';
+import { ToastsService } from '../services/toasts.service';
 @Component({
   selector: 'app-forgotpwd',
   templateUrl: './forgotpwd.page.html',
@@ -19,7 +20,7 @@ export class ForgotpwdPage implements OnInit {
     private config :ConfigService,
     private http: HttpClient,
     private loadingCtrl: LoadingController,
-    private toastController: ToastController,
+    private toastController: ToastsService,
     private authService: AuthenticationService,
   ) { }
 
@@ -63,11 +64,11 @@ export class ForgotpwdPage implements OnInit {
           localStorage.setItem('lsChangePwd','true');
 
           this.router.navigateByUrl('otp');
-          this.presentToast(result.message);
+          this.toastController.presentToast(result.message);
           loading.dismiss();
         }
         else if (result.status === "0") {
-          this.presentToast(result.message);
+          this.toastController.presentToast(result.message);
           loading.dismiss();
         }
         loading.dismiss();
@@ -80,15 +81,6 @@ export class ForgotpwdPage implements OnInit {
     this.validations_form.reset();
     console.log(values);
   }
-
-
-  async presentToast(msg:string) {
-    const toast = await this.toastController.create({
-      message: msg,
-      duration: 3000
-    });
-    toast.present();
-  }
-
+ 
 
 }

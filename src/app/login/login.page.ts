@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ConfigService } from '../services/config.service';
 import { HttpClient } from '@angular/common/http';
-import { LoadingController, ToastController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
+import { ToastsService } from '../services/toasts.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,7 @@ export class LoginPage implements OnInit {
     private config: ConfigService,
     private http: HttpClient,
     private loadingCtrl: LoadingController,
-    private toastController: ToastController,
+    private toastController: ToastsService,
   ) { }
 
   ngOnInit() {
@@ -76,16 +77,16 @@ export class LoginPage implements OnInit {
         if (result.status === "1" && result.data[0].isVerified == 1) {
           this.authService.login();
           this.router.navigateByUrl('dashboard');
-          this.presentToast(result.message);
+          this.toastController.presentToast(result.message);
           loading.dismiss();
         }
         else if (result.status === "1" && result.data[0].isVerified == 0) {
           this.router.navigateByUrl('otp');
-          this.presentToast(result.message);
+          this.toastController.presentToast(result.message);
           loading.dismiss();
         }
         else if (result.status === "0") {
-          this.presentToast(result.message);
+          this.toastController.presentToast(result.message);
           loading.dismiss();
         }
 
@@ -102,14 +103,6 @@ export class LoginPage implements OnInit {
     console.log(values);
 
   }
-
-  async presentToast(msg: string) {
-    const toast = await this.toastController.create({
-      message: msg,
-      duration: 2000
-    });
-    toast.present();
-  }
-
+ 
 
 }

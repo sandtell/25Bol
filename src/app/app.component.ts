@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Platform, NavController, AlertController, ToastController } from '@ionic/angular';
+import { Platform, NavController, AlertController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Storage } from '@ionic/storage';
@@ -8,6 +8,7 @@ import { Network } from '@ionic-native/network/ngx';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { ConfigService } from './services/config.service';
 import { Observable } from 'rxjs';
+import { ToastsService } from './services/toasts.service';
 
 @Component({
   selector: 'app-root',
@@ -86,7 +87,7 @@ export class AppComponent {
     private authenticationService: AuthenticationService,
     private navController:NavController,
     public alertCtrl :AlertController,
-    private toastCtrl: ToastController,
+    private toastCtrl: ToastsService,
     private network: Network,
     public config:ConfigService,
     public http: HttpClient,
@@ -152,16 +153,16 @@ export class AppComponent {
        // watch network for a disconnection
     this.network.onDisconnect().subscribe(() => {
       console.log('network was disconnected ☹️');
-      this.presentToast('Internet not available  ☹️');
+      this.toastCtrl.presentToast('Internet not available  ☹️');
       this.exitFunction('Exit and try again');
     });
 
     // watch network for a connection
     this.network.onConnect().subscribe(() => {
-      this.presentToast('Network connected! ☺️ ');
+      this.toastCtrl.presentToast('Network connected! ☺️ ');
       setTimeout(() => {
         if (this.network.type === 'wifi') {
-          this.presentToast('we got a wifi connection, woohoo!');
+          this.toastCtrl.presentToast('we got a wifi connection, woohoo!');
         }
       }, 3000);
     });
@@ -206,14 +207,7 @@ export class AppComponent {
 
     await alert.present();
   }
-
-  async presentToast(msg) {
-    const toast = await this.toastCtrl.create({
-      message: msg,
-      duration: 2000
-    });
-    toast.present();
-  }
+ 
 
 
   getSubcategory() {    

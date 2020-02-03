@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, LoadingController, ToastController, AlertController } from "@ionic/angular";
+import { NavController, LoadingController, AlertController } from "@ionic/angular";
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
 import { ConfigService } from '../services/config.service';
 import { HttpClient } from '@angular/common/http';
 import { PasswordValidator } from '../password.validator';
+import { ToastsService } from '../services/toasts.service';
 @Component({
   selector: 'app-changepwd',
   templateUrl: './changepwd.page.html',
@@ -20,7 +21,7 @@ export class ChangepwdPage implements OnInit {
   constructor(
     public formBuilder: FormBuilder,
     public loadingCtrl: LoadingController,
-    public toastController: ToastController,
+    public toastController: ToastsService,
     public alertCtrl: AlertController,
     private router: Router,
     private config: ConfigService,
@@ -100,11 +101,11 @@ export class ChangepwdPage implements OnInit {
 
        if (result.status === "1") {
           this.router.navigateByUrl('intro');
-          this.presentToast(result.message);
+          this.toastController.presentToast(result.message);
           loading.dismiss();
         }
         else if (result.status === "0") {
-          this.presentToast(result.message);
+          this.toastController.presentToast(result.message);
           loading.dismiss();
         }
 
@@ -119,13 +120,6 @@ export class ChangepwdPage implements OnInit {
     
   }
 
-
-  async presentToast(msg: string) {
-    const toast = await this.toastController.create({
-      message: msg,
-      duration: 3000
-    });
-    toast.present();
-  }
+ 
 
 }

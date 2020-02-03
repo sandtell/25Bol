@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuController, LoadingController, ToastController } from '@ionic/angular';
+import { MenuController, LoadingController } from '@ionic/angular';
 import { ConfigService } from '../services/config.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -7,6 +7,7 @@ import { File } from '@ionic-native/file/ngx';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 // import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { Downloader, DownloadRequest, NotificationVisibility } from '@ionic-native/downloader/ngx';
+import { ToastsService } from '../services/toasts.service';
 @Component({
   selector: 'app-download',
   templateUrl: './download.page.html',
@@ -25,7 +26,7 @@ export class DownloadPage implements OnInit {
     public menuCtrl: MenuController,
     private file: File,
     private transfer: FileTransfer,
-    private toastCtrl : ToastController,
+    private toastCtrl : ToastsService,
     private downloader: Downloader
   ) { }
 
@@ -110,7 +111,7 @@ export class DownloadPage implements OnInit {
   };
 
   
-  this.downloader.download(request).then((location: string) => this.presentToast('Downloaded at:'+location))
+  this.downloader.download(request).then((location: string) => this.toastCtrl.presentToast('Downloaded at:'+location))
               .catch((error: any) => alert('error' + error));
 
 
@@ -128,16 +129,6 @@ export class DownloadPage implements OnInit {
     //   // handle error
     // });
    }
-
-   async presentToast(msg: string) {
-    const toast = await this.toastCtrl.create({
-      color: 'dark',
-      message: msg,
-      duration: 5000,
-      showCloseButton: true
-    });
-    toast.present();
-  }
-   
+ 
 
 }

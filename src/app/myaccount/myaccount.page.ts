@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Platform, MenuController, LoadingController, ToastController } from '@ionic/angular';
+import { Platform, MenuController, LoadingController } from '@ionic/angular';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { ConfigService } from '../services/config.service';
 import { Observable } from 'rxjs';
+import { ToastsService } from '../services/toasts.service';
 @Component({
   selector: 'app-myaccount',
   templateUrl: './myaccount.page.html',
@@ -25,7 +26,7 @@ export class MyaccountPage implements OnInit, OnDestroy, AfterViewInit {
     public config: ConfigService,
     public loadingCtrl: LoadingController,
     public http: HttpClient,
-    public toastController: ToastController,
+    public toastController: ToastsService,
   ) { }
 
   ionViewWillEnter() {
@@ -189,11 +190,11 @@ export class MyaccountPage implements OnInit, OnDestroy, AfterViewInit {
         if (result.status === "1") {
           this.isEdit = true;
           this.validations_form.disable();
-          this.presentToast(result.message);
+          this.toastController.presentToast(result.message);
           loading.dismiss();
         }
         else if (result.status === "0") {
-          this.presentToast(result.message);
+          this.toastController.presentToast(result.message);
           loading.dismiss();
         }
 
@@ -206,14 +207,6 @@ export class MyaccountPage implements OnInit, OnDestroy, AfterViewInit {
     });
 
   }
-
-  async presentToast(msg: string) {
-    const toast = await this.toastController.create({
-      message: msg,
-      duration: 3000
-    });
-    toast.present();
-  }
-
+ 
 
 }
