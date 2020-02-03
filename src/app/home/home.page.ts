@@ -15,6 +15,11 @@ export class HomePage {
   public categoryName: string = '';
   public categoryListJson :any = [];
   public content:string='';
+
+  showLevel1 = null;
+  showLevel2 = null;
+  showLevel3 = null;
+
   constructor(
     private authService: AuthenticationService,
     private router: Router,
@@ -46,6 +51,7 @@ export class HomePage {
     data = this.http.get(url,{ headers: headers });
     loading.present().then(() => {
       data.subscribe(result => {
+        console.log(result);
         if(result.data.length != 0) {
           this.content = result.data.parent_page.content;
           this.categoryListJson = result.data.category_list;
@@ -72,4 +78,48 @@ export class HomePage {
     this.router.navigateByUrl('intro');
   }
 
+
+  clearLevel() {
+    this.showLevel1 = null;
+    this.showLevel2 = null;
+    this.showLevel3 = null;
+  }
+
+  toggleLevel1(idx: string) {
+    if (this.isLevel1Shown(idx)) {
+      this.showLevel1 = null;
+    } else {
+      this.showLevel1 = idx;
+    }
+  }
+
+  isLevel1Shown(idx: string) {
+    return this.showLevel1 === idx;
+  }
+
+  toggleLevel2(idx: string) {
+    if (this.isLevel2Shown(idx)) {
+      this.showLevel2 = null;
+    } else {
+      this.showLevel1 = idx;
+      this.showLevel2 = idx;
+    }
+  }
+
+  isLevel2Shown(idx: string) {
+    return this.showLevel2 === idx;
+  }
+
+  toggleLevel3(idx: string) {
+    if (this.isLevel3Shown(idx)) {
+      this.showLevel3 = null;
+    } else {
+      this.showLevel2 = idx;
+      this.showLevel3 = idx;
+    }
+  }
+
+  isLevel3Shown(idx: string) {
+    return this.showLevel3 === idx;
+  }
 }

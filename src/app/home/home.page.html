@@ -18,27 +18,44 @@
   <div class="ion-padding" >
     <div [innerHTML]="content" ></div>
   </div>
+ 
 
-  <ion-list>
-    <!-- <ion-list-header>
-        Recent Conversations
-      </ion-list-header> -->
-  
-    <ion-item *ngFor="let c of categoryListJson" routerLink="/categorydetails/{{c.category_id}}/{{c.category_name}}"
-      routerDirection="forward">
-      <ion-avatar slot="start">
-        <img src="{{config.assetsURL}}/{{c.image}}">
-      </ion-avatar>
-      <ion-label>
-        <h2 [innerHTML]="c.category_name"></h2>
+  <ion-list lines="full">
+    <ion-item *ngFor="let p of categoryListJson; let i=index;" [routerDirection]="'root'" >
+      <ion-label slot="start">
+        <ion-icon class="ion-text-right" (click)="toggleLevel1('idx'+i)" [ngClass]="{active: isLevel1Shown('idx'+i)}" *ngIf="p.sub_category != ''" [name]="isLevel1Shown('idx'+i) ? 'arrow-round-down' : 'arrow-round-forward'" slot="end"></ion-icon>
+        
+        <span routerLink="/categorydetails/{{p.category_id}}/{{p.category_name}}" routerDirection="forward">
+          {{p.category_name}}
+        </span>
+        
+
+        <ul slot="start" *ngIf="isLevel1Shown('idx'+i)" class="level1">
+          <li *ngFor="let i1 of p.sub_category; let j=index;"  >
+              <ion-icon *ngIf="i1.sub_category != ''" (click)="toggleLevel2('idx'+i+'idx'+j)" [ngClass]="{active: isLevel2Shown('idx'+i+'idx'+j)}" [name]="isLevel2Shown('idx'+i+'idx'+j) ? 'arrow-round-down' : 'arrow-round-forward'" slot="end"></ion-icon>
+              <span routerLink="/categorydetails/{{i1.category_id}}/{{i1.category_name}}" routerDirection="forward">
+              {{i1.category_name}}
+            </span>
+            <ul *ngIf="isLevel2Shown('idx'+i+'idx'+j)" class="level2">
+              <li *ngFor="let i2 of i1.sub_category; let k=index;" [ngClass]="{active: isLevel3Shown('idx'+i+'idx'+j+'idx'+k)}">
+                <ion-icon  *ngIf="i2.sub_category != ''" (click)="toggleLevel3('idx'+i+'idx'+j+'idx'+k)" [name]="isLevel3Shown('idx'+i+'idx'+j+'idx'+k) ? 'arrow-round-down' : 'arrow-round-forward'" slot="end"></ion-icon>
+
+                <span routerLink="/categorydetails/{{i2.category_id}}/{{i2.category_name}}" routerDirection="forward">
+                  {{i2.category_name}}
+                </span>
+                <!-- <ul *ngIf="isLevel3Shown('idx'+i+'idx'+j+'idx'+k)" class="level3">
+                  <li *ngFor="let i3 of i2.sub_category; let l=index;" [routerLink]="[i3.url]">
+                    <ion-menu-toggle auto-hide="false" class="first-level">{{i3.category_name}}</ion-menu-toggle>
+                  </li>
+                </ul> -->
+              </li>
+            </ul>
+          </li>
+        </ul>
       </ion-label>
     </ion-item>
   </ion-list>
 
-  <!-- <div text-center >
-    <ion-button (click)="logoutFn()" >Logout</ion-button>
-  </div> -->
-  
 
    
 </ion-content>
